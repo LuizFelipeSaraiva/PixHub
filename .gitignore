@@ -1,0 +1,48 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+artifacts/
+*.user
+*.suo
+
+# .NET
+project.lock.json
+*.nuget.props
+*.nuget.targets
+.vs/
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Test / coverage
+[Tt]est[Rr]esults/
+coverage/
+*.coverage
+*.trx
+StrykerOutput/
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+override.tf
+override.tf.json
+
+# Node / Claude Code CLI artifacts that live in this folder (not part of the .NET solution)
+node_modules/
+/package.json
+/package-lock.json
+
+# Secrets / local env
+*.env
+.env.local
+appsettings.*.local.json
+secrets.json
+
+# OS
+.DS_Store
+Thumbs.db

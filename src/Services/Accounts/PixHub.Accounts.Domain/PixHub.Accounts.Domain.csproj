@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>PixHub.Accounts.Domain</RootNamespace>
+    <AssemblyName>PixHub.Accounts.Domain</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\PixHub.BuildingBlocks.Domain\PixHub.BuildingBlocks.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

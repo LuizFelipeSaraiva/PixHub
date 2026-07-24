@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>PixHub.BuildingBlocks.Domain</RootNamespace>
+    <AssemblyName>PixHub.BuildingBlocks.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>

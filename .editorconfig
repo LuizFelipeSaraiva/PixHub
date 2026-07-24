@@ -1,0 +1,42 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+indent_style = space
+trim_trailing_whitespace = true
+
+[*.{cs,csx}]
+indent_size = 4
+# Language conventions
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_when_type_is_apparent = true:suggestion
+dotnet_style_qualification_for_field = false:warning
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+csharp_prefer_braces = true:suggestion
+dotnet_sort_system_directives_first = true
+dotnet_style_readonly_field = true:warning
+# Naming: interfaces prefixed with I, async suffix, etc. (defaults are sensible)
+
+# --- Analyzer rule tuning ---
+# CA1716: "Error"/"Result" are the deliberate vocabulary of the Result pattern. The rule only
+# matters for public library APIs consumed from VB/F#; this is an application, so silence it.
+dotnet_diagnostic.CA1716.severity = none
+# CA1062: argument-null validation on public methods is redundant with nullable reference types,
+# which are enabled repo-wide. Silence to avoid double-guarding.
+dotnet_diagnostic.CA1062.severity = none
+# CA2007: ConfigureAwait(false) is unnecessary (and discouraged) in ASP.NET Core application code,
+# which has no synchronization context.
+dotnet_diagnostic.CA2007.severity = none
+
+[*.{json,yml,yaml,tf,props,targets,csproj}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Test projects: the "Method_Scenario_Expectation" naming convention deliberately uses underscores,
+# so CA1707 (no underscores in identifiers) is noise here.
+[tests/**/*.cs]
+dotnet_diagnostic.CA1707.severity = none

@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/PixHub.BuildingBlocks.Domain/PixHub.BuildingBlocks.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Accounts/">
+    <Project Path="src/Services/Accounts/PixHub.Accounts.Domain/PixHub.Accounts.Domain.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/Services/" />
+  <Folder Name="/tests/Services/Accounts/">
+    <Project Path="tests/Services/Accounts/PixHub.Accounts.Domain.Tests/PixHub.Accounts.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
