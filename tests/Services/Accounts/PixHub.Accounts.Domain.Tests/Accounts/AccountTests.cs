@@ -27,7 +27,7 @@ public class AccountTests
         var account = result.Value;
         account.Status.ShouldBe(AccountStatus.Active);
         account.Balance.IsZero.ShouldBeTrue();
-        account.HolderName.ShouldBe("Maria Silva"); // trimmed
+        account.HolderName.ShouldBe("Maria Silva"); // com espaços removidos
 
         var opened = account.DomainEvents.ShouldHaveSingleItem().ShouldBeOfType<AccountOpened>();
         opened.AccountId.ShouldBe(account.Id.Value);
@@ -88,7 +88,7 @@ public class AccountTests
         var account = OpenActiveAccount(30m);
 
         account.Debit(Brl(50m)).Error.ShouldBe(AccountErrors.InsufficientFunds);
-        account.Balance.Amount.ShouldBe(30m); // unchanged
+        account.Balance.Amount.ShouldBe(30m); // inalterado
     }
 
     [Fact]
@@ -109,7 +109,7 @@ public class AccountTests
         account.Status.ShouldBe(AccountStatus.Blocked);
 
         account.ClearDomainEvents();
-        account.Block("de novo").IsSuccess.ShouldBeTrue(); // idempotent
+        account.Block("de novo").IsSuccess.ShouldBeTrue(); // idempotente
         account.DomainEvents.ShouldBeEmpty();
     }
 

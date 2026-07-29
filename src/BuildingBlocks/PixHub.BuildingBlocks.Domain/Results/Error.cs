@@ -1,8 +1,8 @@
 namespace PixHub.BuildingBlocks.Domain.Results;
 
 /// <summary>
-/// Classifies an <see cref="Error"/> so upper layers (e.g. the API) can map it to the
-/// appropriate transport concern (HTTP status code) without leaking domain details.
+/// Classifica um <see cref="Error"/> para que as camadas superiores (por exemplo, a API) consigam
+/// mapeá-lo à preocupação de transporte adequada (código HTTP) sem vazar detalhes do domínio.
 /// </summary>
 public enum ErrorType
 {
@@ -15,15 +15,17 @@ public enum ErrorType
 }
 
 /// <summary>
-/// A structured, code-carrying error used by the <see cref="Result"/> railway.
-/// Errors are values (records) so they compare by content and are cheap to pass around.
+/// Erro estruturado, portador de código, usado pelo trilho do <see cref="Result"/>.
+/// Erros são valores (records), então comparam por conteúdo e são baratos de passar adiante.
+/// Não é sealed para que <see cref="ValidationError"/> possa carregar um conjunto de erros e ainda
+/// assim trafegar pelo formato de um único <c>Error</c> do <see cref="Result"/>.
 /// </summary>
-public sealed record Error(string Code, string Description, ErrorType Type)
+public record Error(string Code, string Description, ErrorType Type)
 {
     public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Failure);
 
     public static readonly Error NullValue =
-        new("General.Null", "A null value was provided.", ErrorType.Failure);
+        new("General.Null", "Um valor nulo foi informado.", ErrorType.Failure);
 
     public static Error Failure(string code, string description) => new(code, description, ErrorType.Failure);
 

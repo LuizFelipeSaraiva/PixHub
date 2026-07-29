@@ -1,12 +1,12 @@
 namespace PixHub.BuildingBlocks.Domain.Primitives;
 
 /// <summary>
-/// Base type for DDD value objects: equality is structural (by the components returned from
-/// <see cref="GetEqualityComponents"/>), and instances are treated as immutable.
+/// Tipo base dos value objects do DDD: a igualdade é estrutural (pelos componentes devolvidos por
+/// <see cref="GetEqualityComponents"/>) e as instâncias são tratadas como imutáveis.
 /// </summary>
 public abstract class ValueObject : IEquatable<ValueObject>
 {
-    /// <summary>The ordered set of values that define equality for this value object.</summary>
+    /// <summary>Conjunto ordenado de valores que define a igualdade deste value object.</summary>
     protected abstract IEnumerable<object?> GetEqualityComponents();
 
     public bool Equals(ValueObject? other) =>

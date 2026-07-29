@@ -1,19 +1,31 @@
 <Project>
   <!--
-    Central Package Management (CPM).
-    Package versions are declared here once and referenced without a Version in each .csproj.
-    Versions are added incrementally as packages are introduced, so every addition is
-    validated by a real restore/build rather than guessed up front.
+    Gerenciamento Central de Pacotes (CPM).
+    As versões dos pacotes são declaradas aqui uma única vez e referenciadas sem Version em cada
+    .csproj. As versões entram de forma incremental, conforme os pacotes vão sendo introduzidos, de
+    modo que cada adição seja validada por um restore/build real em vez de ser chutada de antemão.
   -->
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <!-- Package versions are added per phase as dependencies are introduced. -->
+    <!-- As versões dos pacotes são acrescentadas a cada fase, conforme surgem as dependências. -->
   </ItemGroup>
   <ItemGroup>
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
+    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageVersion Include="NSubstitute" Version="6.0.0" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

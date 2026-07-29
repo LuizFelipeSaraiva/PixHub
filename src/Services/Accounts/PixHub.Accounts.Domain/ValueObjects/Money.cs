@@ -5,9 +5,9 @@ using PixHub.BuildingBlocks.Domain.Results;
 namespace PixHub.Accounts.Domain.ValueObjects;
 
 /// <summary>
-/// Monetary amount with an explicit currency. Immutable value object with at most 2 decimal places
-/// (centavos). Arithmetic across different currencies is a programming error and throws, whereas
-/// business rules (e.g. sufficient funds) are decided by the <c>Account</c> aggregate.
+/// Valor monetário com moeda explícita. Value object imutável, com no máximo 2 casas decimais
+/// (centavos). Operar aritmética entre moedas diferentes é erro de programação e lança exceção; já
+/// as regras de negócio (por exemplo, saldo suficiente) são decididas pelo agregado <c>Account</c>.
 /// </summary>
 public sealed class Money : ValueObject
 {
@@ -37,7 +37,7 @@ public sealed class Money : ValueObject
         return new Money(amount, currency);
     }
 
-    /// <summary>Builds an amount from an integer number of minor units (e.g. centavos).</summary>
+    /// <summary>Monta um valor a partir de um inteiro em unidades menores (centavos).</summary>
     public static Money FromMinorUnits(long minorUnits, Currency currency = Currency.BRL) =>
         new(minorUnits / 100m, currency);
 
@@ -64,7 +64,7 @@ public sealed class Money : ValueObject
         if (Currency != other.Currency)
         {
             throw new InvalidOperationException(
-                $"Cannot operate on amounts of different currencies: {Currency} and {other.Currency}.");
+                $"Não é possível operar valores de moedas diferentes: {Currency} e {other.Currency}.");
         }
     }
 

@@ -1,6 +1,6 @@
 namespace PixHub.Accounts.Domain.ValueObjects;
 
-/// <summary>ISO-4217 currencies supported by the platform (numeric code as the enum value).</summary>
+/// <summary>Moedas ISO-4217 suportadas pela plataforma (o código numérico é o valor do enum).</summary>
 public enum Currency
 {
     BRL = 986,

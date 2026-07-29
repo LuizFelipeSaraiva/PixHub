@@ -9,7 +9,7 @@ trim_trailing_whitespace = true
 
 [*.{cs,csx}]
 indent_size = 4
-# Language conventions
+# Convenções de linguagem
 csharp_style_namespace_declarations = file_scoped:warning
 csharp_style_var_when_type_is_apparent = true:suggestion
 dotnet_style_qualification_for_field = false:warning
@@ -17,17 +17,17 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
 csharp_prefer_braces = true:suggestion
 dotnet_sort_system_directives_first = true
 dotnet_style_readonly_field = true:warning
-# Naming: interfaces prefixed with I, async suffix, etc. (defaults are sensible)
+# Nomenclatura: interfaces com prefixo I, sufixo Async etc. (os padrões já são sensatos)
 
-# --- Analyzer rule tuning ---
-# CA1716: "Error"/"Result" are the deliberate vocabulary of the Result pattern. The rule only
-# matters for public library APIs consumed from VB/F#; this is an application, so silence it.
+# --- Ajuste das regras dos analisadores ---
+# CA1716: "Error"/"Result" são o vocabulário deliberado do padrão Result. A regra só importa em APIs
+# públicas de biblioteca consumidas por VB/F#; aqui é uma aplicação, então fica silenciada.
 dotnet_diagnostic.CA1716.severity = none
-# CA1062: argument-null validation on public methods is redundant with nullable reference types,
-# which are enabled repo-wide. Silence to avoid double-guarding.
+# CA1062: validar argumento nulo em métodos públicos é redundante com os tipos de referência
+# anuláveis, habilitados em todo o repositório. Silenciada para evitar guarda dupla.
 dotnet_diagnostic.CA1062.severity = none
-# CA2007: ConfigureAwait(false) is unnecessary (and discouraged) in ASP.NET Core application code,
-# which has no synchronization context.
+# CA2007: ConfigureAwait(false) é desnecessário (e desaconselhado) em código de aplicação ASP.NET
+# Core, que não possui contexto de sincronização.
 dotnet_diagnostic.CA2007.severity = none
 
 [*.{json,yml,yaml,tf,props,targets,csproj}]
@@ -36,7 +36,7 @@ indent_size = 2
 [*.md]
 trim_trailing_whitespace = false
 
-# Test projects: the "Method_Scenario_Expectation" naming convention deliberately uses underscores,
-# so CA1707 (no underscores in identifiers) is noise here.
+# Projetos de teste: a convenção de nome "Metodo_Cenario_Expectativa" usa underscores de propósito,
+# então a CA1707 (sem underscores em identificadores) só geraria ruído aqui.
 [tests/**/*.cs]
 dotnet_diagnostic.CA1707.severity = none

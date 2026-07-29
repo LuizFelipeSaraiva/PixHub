@@ -5,13 +5,13 @@ using PixHub.BuildingBlocks.Domain.Results;
 namespace PixHub.Accounts.Domain.Accounts;
 
 /// <summary>
-/// The Account aggregate root — the transactional boundary for a customer's balance. All state
-/// changes go through intention-revealing methods that enforce invariants and return a
-/// <see cref="Result"/>, and each successful change records a domain event for the outbox.
+/// A raiz de agregado Account — o limite transacional do saldo de um cliente. Toda alteração de
+/// estado passa por métodos que revelam a intenção, aplicam as invariantes e devolvem um
+/// <see cref="Result"/>; cada alteração bem-sucedida registra um domain event para o outbox.
 /// </summary>
 public sealed class Account : AggregateRoot<AccountId>
 {
-    // Required by EF Core for materialization; domain code must use the factory/behaviors.
+    // Exigido pelo EF Core para materialização; o código de domínio deve usar a fábrica/comportamentos.
     private Account()
     {
     }
@@ -36,7 +36,7 @@ public sealed class Account : AggregateRoot<AccountId>
 
     public DateTimeOffset OpenedAtUtc { get; private set; }
 
-    /// <summary>Opens a new active account. The opening balance defaults to zero.</summary>
+    /// <summary>Abre uma nova conta ativa. O saldo de abertura, quando omitido, é zero.</summary>
     public static Result<Account> Open(Cpf holderCpf, string holderName, Money? openingBalance = null)
     {
         if (string.IsNullOrWhiteSpace(holderName))
@@ -109,7 +109,7 @@ public sealed class Account : AggregateRoot<AccountId>
 
         if (Status == AccountStatus.Blocked)
         {
-            return Result.Success(); // idempotent: blocking a blocked account is a no-op
+            return Result.Success(); // idempotente: bloquear conta já bloqueada não faz nada
         }
 
         Status = AccountStatus.Blocked;
@@ -132,7 +132,7 @@ public sealed class Account : AggregateRoot<AccountId>
     {
         if (Status == AccountStatus.Closed)
         {
-            return Result.Success(); // idempotent
+            return Result.Success(); // idempotente
         }
 
         if (!Balance.IsZero)

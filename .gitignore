@@ -1,4 +1,4 @@
-# Build output
+# Saída de build
 [Bb]in/
 [Oo]bj/
 [Oo]ut/
@@ -12,11 +12,11 @@ project.lock.json
 *.nuget.targets
 .vs/
 
-# Rider / VS Code
+# Rider / VS Code (IDEs)
 .idea/
 .vscode/
 
-# Test / coverage
+# Testes / cobertura
 [Tt]est[Rr]esults/
 coverage/
 *.coverage
@@ -32,12 +32,17 @@ crash.log
 override.tf
 override.tf.json
 
-# Node / Claude Code CLI artifacts that live in this folder (not part of the .NET solution)
+# Artefatos do Node / CLI do Claude Code que vivem nesta pasta (não fazem parte da solução .NET)
 node_modules/
 /package.json
 /package-lock.json
 
-# Secrets / local env
+# Arquivamento pessoal das sessões do Claude Code (fora do produto; os transcripts podem conter conteúdo de conversa)
+.session-logs/
+.claude/settings.local.json
+.claude/archive-session.ps1
+
+# Segredos / ambiente local
 *.env
 .env.local
 appsettings.*.local.json

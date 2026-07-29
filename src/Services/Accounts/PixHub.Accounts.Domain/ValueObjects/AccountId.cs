@@ -1,9 +1,9 @@
 namespace PixHub.Accounts.Domain.ValueObjects;
 
 /// <summary>
-/// Strongly-typed identifier for an account. A record struct gives value equality for free and
-/// prevents accidentally passing a raw <see cref="Guid"/> where an account id is expected.
-/// Uses a v7 (time-ordered) GUID so database indexes stay locality-friendly.
+/// Identificador fortemente tipado de uma conta. Um record struct dá igualdade por valor de graça e
+/// evita passar por engano um <see cref="Guid"/> cru onde se espera o id de uma conta.
+/// Usa GUID v7 (ordenado no tempo) para manter os índices do banco com boa localidade.
 /// </summary>
 public readonly record struct AccountId(Guid Value)
 {

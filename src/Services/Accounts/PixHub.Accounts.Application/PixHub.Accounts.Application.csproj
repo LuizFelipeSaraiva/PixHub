@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>PixHub.Accounts.Application</RootNamespace>
+    <AssemblyName>PixHub.Accounts.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PixHub.Accounts.Domain\PixHub.Accounts.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Handlers, validadores e behaviors são internal: só o pipeline os resolve. Os testes de
+         unidade precisam instanciá-los diretamente, sem ampliar a superfície pública da camada. -->
+    <InternalsVisibleTo Include="PixHub.Accounts.Application.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Mediator.Abstractions" />
+    <PackageReference Include="Mediator.SourceGenerator">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+</Project>

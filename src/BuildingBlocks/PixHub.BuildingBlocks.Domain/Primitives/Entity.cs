@@ -1,15 +1,16 @@
 namespace PixHub.BuildingBlocks.Domain.Primitives;
 
 /// <summary>
-/// Base type for entities: identity-based equality over a strongly-typed id.
-/// Two entities are equal when they are the same concrete type and share the same id.
+/// Tipo base das entidades: igualdade por identidade sobre um id fortemente tipado.
+/// Duas entidades são iguais quando são do mesmo tipo concreto e compartilham o mesmo id.
 /// </summary>
 public abstract class Entity<TId> : IEquatable<Entity<TId>>
     where TId : notnull
 {
     protected Entity(TId id) => Id = id;
 
-    // Parameterless ctor for ORM materialization; kept protected so domain code cannot bypass invariants.
+    // Construtor sem parâmetros para materialização pelo ORM; fica protected para que o código de
+    // domínio não consiga burlar as invariantes.
     protected Entity()
     {
         Id = default!;

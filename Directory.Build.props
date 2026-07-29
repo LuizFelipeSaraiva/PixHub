@@ -1,6 +1,6 @@
 <Project>
 
-  <!-- Common build settings applied to every project in the repository. -->
+  <!-- Configurações de build comuns, aplicadas a todos os projetos do repositório. -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -15,7 +15,7 @@
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
-  <!-- Test projects opt out of the stricter production settings. -->
+  <!-- Projetos de teste ficam de fora das configurações mais estritas de produção. -->
   <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <IsPackable>false</IsPackable>

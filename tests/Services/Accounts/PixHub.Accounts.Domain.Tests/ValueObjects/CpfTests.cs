@@ -42,8 +42,8 @@ public class CpfTests
     }
 
     [Theory]
-    [InlineData("111.444.777-00")] // wrong check digits
-    [InlineData("111.111.111-11")] // repeated digits
+    [InlineData("111.444.777-00")] // dígitos verificadores errados
+    [InlineData("111.111.111-11")] // dígitos repetidos
     [InlineData("000.000.000-00")]
     public void Create_WithInvalidCheckDigits_Fails(string input)
     {

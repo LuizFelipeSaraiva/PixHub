@@ -2,8 +2,8 @@ using PixHub.BuildingBlocks.Domain.Primitives;
 
 namespace PixHub.Accounts.Domain.Accounts;
 
-// Domain events carry primitive-friendly data so they serialize cleanly into the transactional
-// outbox and onto the message bus (as integration events) without leaking value-object types.
+// Os domain events carregam dados primitivos para serializar de forma limpa no outbox transacional
+// e no barramento de mensagens (como integration events), sem vazar os tipos de value object.
 
 public sealed record AccountOpened(
     Guid AccountId,

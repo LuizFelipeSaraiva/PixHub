@@ -5,20 +5,21 @@ using PixHub.BuildingBlocks.Domain.Results;
 namespace PixHub.Accounts.Domain.ValueObjects;
 
 /// <summary>
-/// Brazilian taxpayer id (CPF). Constructed only through <see cref="Create"/>, which normalizes the
-/// input to 11 digits and validates the two check digits — so an invalid CPF cannot exist in the domain.
+/// Cadastro de Pessoa Física (CPF). Só pode ser construído por <see cref="Create"/>, que normaliza a
+/// entrada para 11 dígitos e valida os dois dígitos verificadores — assim, um CPF inválido não
+/// consegue existir dentro do domínio.
 /// </summary>
 public sealed partial class Cpf : ValueObject
 {
     private Cpf(string digits) => Value = digits;
 
-    /// <summary>The 11 normalized digits (no punctuation).</summary>
+    /// <summary>Os 11 dígitos normalizados (sem pontuação).</summary>
     public string Value { get; }
 
-    /// <summary>Formatted for display: <c>123.456.789-09</c>.</summary>
+    /// <summary>Formatado para exibição: <c>123.456.789-09</c>.</summary>
     public string Formatted => $"{Value[..3]}.{Value[3..6]}.{Value[6..9]}-{Value[9..]}";
 
-    /// <summary>PII-safe partial mask for logs/audit: <c>123.***.***-09</c>.</summary>
+    /// <summary>Máscara parcial, segura para logs/auditoria por ser dado pessoal: <c>123.***.***-09</c>.</summary>
     public string Masked => $"{Value[..3]}.***.***-{Value[9..]}";
 
     public static Result<Cpf> Create(string? input)
@@ -40,7 +41,7 @@ public sealed partial class Cpf : ValueObject
 
     private static bool IsValid(string cpf)
     {
-        // Reject sequences of a single repeated digit (000..., 111..., ...) which pass the math but are invalid.
+        // Rejeita sequências de um único dígito repetido (000..., 111...), que passam no cálculo mas são inválidas.
         if (cpf.Distinct().Count() == 1)
         {
             return false;

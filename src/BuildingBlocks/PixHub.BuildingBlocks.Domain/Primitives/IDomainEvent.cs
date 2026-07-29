@@ -1,9 +1,9 @@
 namespace PixHub.BuildingBlocks.Domain.Primitives;
 
 /// <summary>
-/// A fact that has happened inside an aggregate. Domain events are raised by aggregates and
-/// dispatched after the aggregate is persisted (via the outbox), decoupling side effects and
-/// enabling both choreographed and orchestrated sagas.
+/// Um fato que aconteceu dentro de um agregado. Domain events são levantados pelos agregados e
+/// despachados depois que o agregado é persistido (via outbox), desacoplando efeitos colaterais e
+/// viabilizando tanto sagas coreografadas quanto orquestradas.
 /// </summary>
 public interface IDomainEvent
 {
@@ -12,7 +12,7 @@ public interface IDomainEvent
     DateTimeOffset OccurredOnUtc { get; }
 }
 
-/// <summary>Convenience base record that stamps a unique id and timestamp on each event.</summary>
+/// <summary>Record base de conveniência que carimba id único e data/hora em cada evento.</summary>
 public abstract record DomainEvent : IDomainEvent
 {
     public Guid EventId { get; init; } = Guid.NewGuid();

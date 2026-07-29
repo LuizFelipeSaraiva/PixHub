@@ -1,9 +1,9 @@
 namespace PixHub.BuildingBlocks.Domain.Primitives;
 
 /// <summary>
-/// An aggregate root is the only entry point for mutating an aggregate and the boundary of a
-/// transaction. It records <see cref="IDomainEvent"/>s that infrastructure collects and publishes
-/// (through the transactional outbox) after the aggregate is saved.
+/// A raiz de agregado é o único ponto de entrada para alterar um agregado e o limite de uma
+/// transação. Ela acumula <see cref="IDomainEvent"/>s que a infraestrutura coleta e publica
+/// (pelo outbox transacional) depois que o agregado é gravado.
 /// </summary>
 public abstract class AggregateRoot<TId> : Entity<TId>
     where TId : notnull

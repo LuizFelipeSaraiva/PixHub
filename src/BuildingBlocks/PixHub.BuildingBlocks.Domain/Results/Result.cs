@@ -1,9 +1,10 @@
 namespace PixHub.BuildingBlocks.Domain.Results;
 
 /// <summary>
-/// Railway-oriented result. Domain and application operations return a <see cref="Result"/>
-/// (or <see cref="Result{TValue}"/>) instead of throwing for expected failures, keeping the
-/// control flow explicit and cheap. Exceptions remain for truly exceptional/unrecoverable cases.
+/// Resultado no estilo "railway-oriented". Operações de domínio e de aplicação devolvem um
+/// <see cref="Result"/> (ou <see cref="Result{TValue}"/>) em vez de lançar exceção para falhas
+/// esperadas, mantendo o fluxo de controle explícito e barato. Exceções ficam reservadas aos casos
+/// realmente excepcionais/irrecuperáveis.
 /// </summary>
 public class Result
 {
@@ -12,9 +13,9 @@ public class Result
         switch (isSuccess)
         {
             case true when error != Error.None:
-                throw new InvalidOperationException("A successful result cannot contain an error.");
+                throw new InvalidOperationException("Um resultado de sucesso não pode conter erro.");
             case false when error == Error.None:
-                throw new InvalidOperationException("A failure result must contain a non-empty error.");
+                throw new InvalidOperationException("Um resultado de falha precisa conter um erro.");
             default:
                 IsSuccess = isSuccess;
                 Error = error;
@@ -36,15 +37,15 @@ public class Result
 
     public static Result<TValue> Failure<TValue>(Error error) => new(default, false, error);
 
-    /// <summary>Wraps a possibly-null value: null becomes a <see cref="Error.NullValue"/> failure.</summary>
+    /// <summary>Encapsula um valor possivelmente nulo: nulo vira uma falha <see cref="Error.NullValue"/>.</summary>
     public static Result<TValue> Create<TValue>(TValue? value) =>
         value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
 
-    /// <summary>Lets a method returning <see cref="Result"/> simply <c>return someError;</c>.</summary>
+    /// <summary>Permite que um método que devolve <see cref="Result"/> faça apenas <c>return algumErro;</c>.</summary>
     public static implicit operator Result(Error error) => Failure(error);
 }
 
-/// <summary>A <see cref="Result"/> that also carries a value on success.</summary>
+/// <summary>Um <see cref="Result"/> que também carrega um valor em caso de sucesso.</summary>
 public class Result<TValue> : Result
 {
     private readonly TValue? _value;
@@ -52,10 +53,10 @@ public class Result<TValue> : Result
     protected internal Result(TValue? value, bool isSuccess, Error error)
         : base(isSuccess, error) => _value = value;
 
-    /// <summary>The success value. Accessing it on a failure result is a programming error.</summary>
+    /// <summary>Valor do sucesso. Acessá-lo em um resultado de falha é erro de programação.</summary>
     public TValue Value => IsSuccess
         ? _value!
-        : throw new InvalidOperationException("The value of a failure result cannot be accessed.");
+        : throw new InvalidOperationException("Não é possível acessar o valor de um resultado de falha.");
 
     public static implicit operator Result<TValue>(TValue value) => Success(value);
 
