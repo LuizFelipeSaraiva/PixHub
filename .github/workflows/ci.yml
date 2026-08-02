@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, edited, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  pr-title:
+    name: Validar título do PR
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      statuses: write
+    steps:
+      - name: Conventional Commits no título do PR
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    env:
+      SONAR_ENABLED: ${{ secrets.SONAR_TOKEN != '' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # histórico completo: exigido pelo SonarCloud para blame/novidade de código
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Setup Java (dependência do SonarScanner)
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: "17"
+
+      - name: Instalar ferramentas globais (sonarscanner + reportgenerator)
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet tool install --global dotnet-reportgenerator-globaltool
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: SonarCloud - begin
+        if: ${{ env.SONAR_ENABLED == 'true' }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: >
+          dotnet sonarscanner begin
+          /k:"${{ vars.SONAR_PROJECT_KEY }}"
+          /o:"${{ vars.SONAR_ORGANIZATION }}"
+          /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          /d:sonar.host.url="https://sonarcloud.io"
+          /d:sonar.cs.cobertura.reportsPaths="**/coverage.cobertura.xml"
+
+      - name: Restore
+        run: dotnet restore PixHub.slnx
+
+      - name: Verificar formatação (.editorconfig)
+        run: dotnet format PixHub.slnx --verify-no-changes --no-restore
+
+      - name: Build (Release, warnings como erro)
+        run: dotnet build PixHub.slnx --no-restore --configuration Release
+
+      - name: Test (com cobertura)
+        run: >
+          dotnet test PixHub.slnx --no-build --configuration Release
+          --logger "trx"
+          --collect:"XPlat Code Coverage"
+          --results-directory ./TestResults
+
+      - name: SonarCloud - end
+        if: ${{ env.SONAR_ENABLED == 'true' }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+      - name: Gerar relatório de cobertura
+        if: always()
+        run: >
+          reportgenerator
+          "-reports:./TestResults/**/coverage.cobertura.xml"
+          "-targetdir:./CoverageReport"
+          "-reporttypes:Html;MarkdownSummaryGithub"
+
+      - name: Publicar cobertura no summary do job/PR
+        if: always()
+        run: |
+          if [ -f ./CoverageReport/SummaryGithub.md ]; then
+            cat ./CoverageReport/SummaryGithub.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Publicar artefato de cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./CoverageReport
+          retention-days: 7
+
+      - name: Publicar resultados dos testes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./TestResults
+          retention-days: 7
