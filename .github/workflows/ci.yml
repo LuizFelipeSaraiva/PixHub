@@ -37,6 +37,8 @@ jobs:
   build-and-test:
     name: Build & Test
     runs-on: ubuntu-latest
+    env:
+      SONAR_ENABLED: ${{ secrets.SONAR_TOKEN != '' }}
 
     steps:
       - name: Checkout
@@ -62,7 +64,7 @@ jobs:
           echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
 
       - name: SonarCloud - begin
-        if: ${{ secrets.SONAR_TOKEN != '' }}
+        if: ${{ env.SONAR_ENABLED == 'true' }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
@@ -90,7 +92,7 @@ jobs:
           --results-directory ./TestResults
 
       - name: SonarCloud - end
-        if: ${{ secrets.SONAR_TOKEN != '' }}
+        if: ${{ env.SONAR_ENABLED == 'true' }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
