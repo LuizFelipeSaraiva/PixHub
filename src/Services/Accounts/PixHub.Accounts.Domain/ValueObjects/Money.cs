@@ -11,7 +11,11 @@ namespace PixHub.Accounts.Domain.ValueObjects;
 /// </summary>
 public sealed class Money : ValueObject
 {
-    public static readonly Money Zero = new(0m, Currency.BRL);
+    // Propriedade (não campo estático) de propósito: devolve uma instância nova a cada chamada.
+    // Um singleton compartilhado quebraria o rastreamento de tipos possuídos do EF Core, que exige
+    // uma instância de Money exclusiva por Account (a mesma referência em vários agregados faz o
+    // change tracker perder a trilha e gravar null em balance_amount nos agregados subsequentes).
+    public static Money Zero => new(0m, Currency.BRL);
 
     private Money(decimal amount, Currency currency)
     {

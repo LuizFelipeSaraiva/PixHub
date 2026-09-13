@@ -35,14 +35,14 @@ nativa, **Outbox/Inbox** transacional, Polly (resiliência), health checks e tra
 |---|---|---|
 | OO + C#/ASP.NET Core | Todos os serviços (.NET 10 / C# 14) | 🟡 em construção |
 | Injeção de dependência | `IServiceCollection` em todos os serviços | 🟡 |
-| **Dapper + EF Core** | EF no write, Dapper no read (Accounts/Payments) | ⬜ Fase 1 |
-| Clean Arch, DDD, SOLID | 4 camadas + NetArchTest | 🟡 domínio Accounts + BuildingBlocks prontos |
-| Microsserviços | 8 serviços + Gateway | ⬜ |
+| **Dapper + EF Core** | EF no write, Dapper no read (Accounts) | 🟢 Fase 1 |
+| Clean Arch, DDD, SOLID | 4 camadas + NetArchTest | 🟢 Accounts (Domain/Application/Infrastructure/Api) |
+| Microsserviços | 8 serviços + Gateway | 🟡 Accounts primeiro |
 | **Saga coreografada × orquestrada** | Payments + Onboarding | ⬜ Fases 4–5 |
 | Feature Toggle (produção) | OpenFeature + Unleash | ⬜ Fase 6 |
-| REST + AWS API Gateway | OpenAPI + Terraform API GW | ⬜ Fases 1,7 |
+| REST + AWS API Gateway | OpenAPI + Terraform API GW | 🟢 Fase 1 (REST + Scalar) · ⬜ Fase 7 (API GW) |
 | Segurança (auth, OWASP) | OpenIddict + hardening + ASVS | ⬜ Fase 2 |
-| Testes xUnit + mock | xUnit v3 + NSubstitute + Stryker | 🟡 38 testes de domínio (verde) |
+| Testes xUnit + mock | xUnit v3 + NSubstitute + NetArchTest + Testcontainers + Stryker | 🟢 91 testes (unit/arch/integração) |
 | AWS (EC2/ECS/EKS/Fargate/S3/SQS/SNS/Lambda/API GW/CloudWatch) | LocalStack + Terraform | ⬜ Fases 5,7 |
 | Mensageria (SQS/Kafka/RabbitMQ) | RabbitMQ+MassTransit + SQS/SNS | ⬜ Fases 3–5 |
 | Relacional + NoSQL | PostgreSQL + DynamoDB + Redis | ⬜ |
@@ -61,16 +61,26 @@ Ver [ADR-0002](docs/adr/0002-dependencias-license-aware.md).
 
 ## Como rodar
 
-**Pré-requisitos:** .NET SDK 10.0.203+. Para fases de infra: Docker, Terraform e AWS CLI (LocalStack).
+**Pré-requisitos:** .NET SDK 10.0.203+. Docker (para o Postgres local e os testes de integração via
+Testcontainers). Para fases futuras de infra: Terraform e AWS CLI (LocalStack).
 
 ```bash
 dotnet build PixHub.slnx -c Release   # compila a solução
-dotnet test  PixHub.slnx              # roda os testes (unit/arch)
+dotnet test  PixHub.slnx              # roda os testes (unit/arch/integração — precisa de Docker)
+
+# Subir a API de Accounts localmente (Postgres real via docker):
+docker run -d --name pixhub-postgres -p 5432:5432 \
+  -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=pixhub_accounts \
+  postgres:18-alpine
+dotnet ef database update --project src/Services/Accounts/PixHub.Accounts.Infrastructure \
+  --startup-project src/Services/Accounts/PixHub.Accounts.Infrastructure
+dotnet run --project src/Services/Accounts/PixHub.Accounts.Api   # Scalar em /scalar (Development)
 ```
 
 O plano de implementação completo e faseado está em `docs/` e nas ADRs.
 
 ---
-_Status: Fase 0 (fundações) concluída. Fase 1 (Accounts) em andamento — domínio DDD + 38 testes unitários
-verdes. Próximo: camadas Application (CQRS) → Infrastructure (EF Core + Dapper) → API. Cada fase é
-entregável e demonstrável._
+_Status: Fase 0 (fundações) concluída. Fase 1 (Accounts) concluída — Domain (DDD) → Application (CQRS)
+→ Infrastructure (EF Core write + Dapper read, migrations) → Api (REST + OpenAPI/Scalar + health
+checks), com testes de unidade, arquitetura (NetArchTest) e integração (Testcontainers + Postgres).
+Próximo: Fase 2 (Identity & OWASP). Cada fase é entregável e demonstrável._
