@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>PixHub.Accounts.Architecture.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Referencia todos os assemblies do serviço para poder inspecionar as dependências entre
+         camadas — inclusive Api e Infrastructure, que os testes de unidade não enxergam. -->
+    <ProjectReference Include="..\..\..\..\src\Services\Accounts\PixHub.Accounts.Api\PixHub.Accounts.Api.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Services\Accounts\PixHub.Accounts.Application\PixHub.Accounts.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Services\Accounts\PixHub.Accounts.Domain\PixHub.Accounts.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Services\Accounts\PixHub.Accounts.Infrastructure\PixHub.Accounts.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NetArchTest.Rules" />
+    <PackageReference Include="Shouldly" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.v3" />
+  </ItemGroup>
+
+</Project>

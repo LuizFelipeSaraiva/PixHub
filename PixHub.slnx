@@ -5,13 +5,17 @@
   </Folder>
   <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/Accounts/">
+    <Project Path="src/Services/Accounts/PixHub.Accounts.Api/PixHub.Accounts.Api.csproj" />
     <Project Path="src/Services/Accounts/PixHub.Accounts.Application/PixHub.Accounts.Application.csproj" />
     <Project Path="src/Services/Accounts/PixHub.Accounts.Domain/PixHub.Accounts.Domain.csproj" />
+    <Project Path="src/Services/Accounts/PixHub.Accounts.Infrastructure/PixHub.Accounts.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/" />
   <Folder Name="/tests/Services/" />
   <Folder Name="/tests/Services/Accounts/">
     <Project Path="tests/Services/Accounts/PixHub.Accounts.Application.Tests/PixHub.Accounts.Application.Tests.csproj" />
+    <Project Path="tests/Services/Accounts/PixHub.Accounts.Architecture.Tests/PixHub.Accounts.Architecture.Tests.csproj" />
     <Project Path="tests/Services/Accounts/PixHub.Accounts.Domain.Tests/PixHub.Accounts.Domain.Tests.csproj" />
+    <Project Path="tests/Services/Accounts/PixHub.Accounts.Infrastructure.Tests/PixHub.Accounts.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>
