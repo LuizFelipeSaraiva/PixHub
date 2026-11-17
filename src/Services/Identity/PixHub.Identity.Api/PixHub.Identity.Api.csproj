@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>PixHub.Identity.Api</RootNamespace>
+    <AssemblyName>PixHub.Identity.Api</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PixHub.Identity.Infrastructure\PixHub.Identity.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\PixHub.BuildingBlocks.Api\PixHub.BuildingBlocks.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Program é parcial (top-level statements) para que WebApplicationFactory&lt;Program&gt; enxergue
+         o host nos testes de integração. -->
+    <InternalsVisibleTo Include="PixHub.Identity.Infrastructure.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="OpenIddict.AspNetCore" />
+    <PackageReference Include="Scalar.AspNetCore" />
+  </ItemGroup>
+
+</Project>
