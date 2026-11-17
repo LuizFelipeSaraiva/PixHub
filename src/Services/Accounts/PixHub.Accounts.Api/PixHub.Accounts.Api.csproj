@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PixHub.Accounts.Application\PixHub.Accounts.Application.csproj" />
     <ProjectReference Include="..\PixHub.Accounts.Infrastructure\PixHub.Accounts.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\PixHub.BuildingBlocks.Api\PixHub.BuildingBlocks.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     <PackageReference Include="Scalar.AspNetCore" />
   </ItemGroup>

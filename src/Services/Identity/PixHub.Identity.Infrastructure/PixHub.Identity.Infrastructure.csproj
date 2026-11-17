@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>PixHub.Identity.Infrastructure</RootNamespace>
+    <AssemblyName>PixHub.Identity.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- O DbContext e o DependencyInjection são public (a Api monta o host); só os detalhes internos
+         de seed ficam internal, e os testes de integração precisam enxergá-los. -->
+    <InternalsVisibleTo Include="PixHub.Identity.Infrastructure.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" />
+  </ItemGroup>
+
+</Project>

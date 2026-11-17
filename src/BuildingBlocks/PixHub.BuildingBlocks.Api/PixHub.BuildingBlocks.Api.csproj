@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>PixHub.BuildingBlocks.Api</RootNamespace>
+    <AssemblyName>PixHub.BuildingBlocks.Api</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- FrameworkReference (não PackageReference) porque este é um classlib comum, não um host Web:
+         só precisamos dos tipos do ASP.NET Core (IApplicationBuilder, RateLimiter etc.), sem herdar o
+         SDK.Web (que pressupõe um entry point próprio). -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>

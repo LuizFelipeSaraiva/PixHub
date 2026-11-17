@@ -16,7 +16,7 @@ namespace PixHub.Accounts.Api.Endpoints;
 /// <summary>Mapeia o recurso REST <c>/api/accounts</c> — cada rota só traduz HTTP em uma mensagem para o <see cref="ISender"/>.</summary>
 internal static class AccountEndpoints
 {
-    public static IEndpointRouteBuilder MapAccountEndpoints(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapAccountEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/accounts").WithTags("Accounts");
 
@@ -52,7 +52,7 @@ internal static class AccountEndpoints
             .WithName("CloseAccount")
             .WithSummary("Encerra a conta (exige saldo zero).");
 
-        return app;
+        return group;
     }
 
     private static async Task<IResult> OpenAccountAsync(
