@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/" />
   <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/PixHub.BuildingBlocks.Api/PixHub.BuildingBlocks.Api.csproj" />
     <Project Path="src/BuildingBlocks/PixHub.BuildingBlocks.Domain/PixHub.BuildingBlocks.Domain.csproj" />
   </Folder>
   <Folder Name="/src/Services/" />
@@ -10,12 +11,20 @@
     <Project Path="src/Services/Accounts/PixHub.Accounts.Domain/PixHub.Accounts.Domain.csproj" />
     <Project Path="src/Services/Accounts/PixHub.Accounts.Infrastructure/PixHub.Accounts.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/Services/Identity/">
+    <Project Path="src/Services/Identity/PixHub.Identity.Api/PixHub.Identity.Api.csproj" />
+    <Project Path="src/Services/Identity/PixHub.Identity.Infrastructure/PixHub.Identity.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/tests/" />
   <Folder Name="/tests/Services/" />
   <Folder Name="/tests/Services/Accounts/">
+    <Project Path="tests/Services/Accounts/PixHub.Accounts.Api.Tests/PixHub.Accounts.Api.Tests.csproj" />
     <Project Path="tests/Services/Accounts/PixHub.Accounts.Application.Tests/PixHub.Accounts.Application.Tests.csproj" />
     <Project Path="tests/Services/Accounts/PixHub.Accounts.Architecture.Tests/PixHub.Accounts.Architecture.Tests.csproj" />
     <Project Path="tests/Services/Accounts/PixHub.Accounts.Domain.Tests/PixHub.Accounts.Domain.Tests.csproj" />
     <Project Path="tests/Services/Accounts/PixHub.Accounts.Infrastructure.Tests/PixHub.Accounts.Infrastructure.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/Services/Identity/">
+    <Project Path="tests/Services/Identity/PixHub.Identity.Infrastructure.Tests/PixHub.Identity.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>
